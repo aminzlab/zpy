@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "python-code-analyzer"
+version = "0.1.0"
+description = "Comprehensive tool for analyzing and improving Python code quality"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "Amin Rezaei", email = "amin.zdev@gmail.com"}
+]
+keywords = ["python", "code-analysis", "linting", "type-checking", "code-quality"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
+dependencies = [
+    "pyright>=1.1.0",
+    "ruff>=0.1.0",
+    "hypothesis>=6.0.0",
+    "click>=8.0.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[project.scripts]
+python-code-analyzer = "modules.cli.main:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["modules"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "PIE", "PT", "RUF"]
+ignore = ["E501"]
+
+[tool.pyright]
+include = ["modules"]
+exclude = ["**/node_modules", "**/__pycache__", "tests"]
+typeCheckingMode = "standard"
+reportMissingImports = true
+reportMissingTypeStubs = false
